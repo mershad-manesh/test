@@ -30,4 +30,4 @@ sudo /usr/share/opennms/bin/install -dis
 sudo systemctl daemon-reload
 sudo systemctl restart opennms
 sudo ufw allow 8980/tcp
-sudo systemctl status opennms
+##sudo systemctl status opennms
