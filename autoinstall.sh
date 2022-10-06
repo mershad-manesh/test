@@ -12,7 +12,7 @@ sudo systemctl reload postgresql
 sudo apt-key adv --fetch-keys https://debian.opennms.org/OPENNMS-GPG-KEY
 sudo add-apt-repository -y -s 'deb https://debian.opennms.org stable main'
 sudo DEBIAN_FRONTEND=noninteractive apt -y install opennms r-recommended tree
-sudo -u opennms vi /usr/share/opennms/etc/opennms-datasources.xml
+##sudo -u opennms vi /usr/share/opennms/etc/opennms-datasources.xml
 echo '--- /usr/share/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290040317 +0000
 +++ /usr/share/opennms/etc/opennms-datasources.xml.backup	2022-10-05 19:01:57.315578426 +0000
 @@ -23,5 +23,5 @@
