@@ -24,6 +24,7 @@ echo '--- /usr/share/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290
  </datasource-configuration>
 ' > /tmp/postgressettings.patch
 sudo patch /usr/share/opennms/etc/opennms-datasources.xml /tmp/postgressettings.patch
+sudo /usr/share/opennms/bin/fix-permissions
 sudo /usr/share/opennms/bin/runjava -s
 sudo /usr/share/opennms/bin/install -dis
 sudo systemctl daemon-reload
