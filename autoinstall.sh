@@ -3,7 +3,7 @@
 #
 # This script is for testing purposes!!!!
 #
-if test -f "~/.installed"; then
+if test -f "/home/opennms/.installed"; then
     echo ".installed exists."
     exit 0 
 fi
@@ -40,6 +40,6 @@ sudo systemctl daemon-reload
 sudo systemctl restart opennms
 sudo ufw allow 8980/tcp
 sleep 10
-/usr/share/opennms/bin/opennms status > ~/.installed 2>&1
+/usr/share/opennms/bin/opennms status > /home/opennms/.installed 2>&1
 ##sudo systemctl status opennms
 exit 0
