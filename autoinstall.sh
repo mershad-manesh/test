@@ -36,3 +36,4 @@ sudo ufw allow 8980/tcp
 sleep 10
 /usr/share/opennms/bin/opennms status
 ##sudo systemctl status opennms
+exit 0
