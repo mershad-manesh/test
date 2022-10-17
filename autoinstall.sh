@@ -3,6 +3,12 @@
 #
 # This script is for testing purposes!!!!
 #
+if test -f "~/.installed"; then
+    echo ".installed exists."
+    exit 0 
+fi
+
+
 sudo apt-get update && sudo apt-get install -y openjdk-11-jre-headless postgresql postgresql-contrib
 sudo systemctl status postgresql
 sleep 5
@@ -34,6 +40,6 @@ sudo systemctl daemon-reload
 sudo systemctl restart opennms
 sudo ufw allow 8980/tcp
 sleep 10
-/usr/share/opennms/bin/opennms status
+/usr/share/opennms/bin/opennms status > ~/.installed 2>&1
 ##sudo systemctl status opennms
 exit 0
