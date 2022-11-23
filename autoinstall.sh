@@ -11,12 +11,27 @@ fi
 
 sudo apt-get update && sudo apt-get install -y openjdk-11-jre-headless postgresql postgresql-contrib
 sudo systemctl status postgresql
-sleep 5
+
+export test_pgready=$(pg_isready > /dev/null 2>&1; echo $?)
+until [ $test_pgready -ne 0 ]
+do 
+ test_pgready=$(pg_isready > /dev/null 2>&1; echo $?)
+ sleep 1
+done
+
+
 sudo -u postgres psql -c "CREATE USER opennms WITH PASSWORD 'opennms';"
 sudo -u postgres createdb -O opennms opennms
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 sudo systemctl reload postgresql
-sleep 5
+
+export test_pgready=$(pg_isready > /dev/null 2>&1; echo $?)
+until [ $test_pgready -ne 0 ]
+do 
+ test_pgready=$(pg_isready > /dev/null 2>&1; echo $?)
+ sleep 1
+done
+
 sudo apt-key adv --fetch-keys https://debian.opennms.org/OPENNMS-GPG-KEY
 sudo add-apt-repository -y -s 'deb https://debian.opennms.org stable main'
 sleep 5
