@@ -58,5 +58,6 @@ sudo systemctl restart opennms
 sudo ufw allow 8980/tcp
 sleep 10
 /usr/share/opennms/bin/opennms status > /home/opennms/.installed 2>&1
+sudo systemctl enable --now opennms
 ##sudo systemctl status opennms
 exit 0
