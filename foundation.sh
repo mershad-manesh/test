@@ -62,7 +62,7 @@ sudo dnf config-manager --disable opennms-meridian-2023-testing-noarch
 
 ##sudo -u opennms vi /opt/opennms/etc/opennms-datasources.xml
 
-Sudo def install patch -y
+sudo def install patch -y
 
 echo '--- /opt/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290040317 +0000
 +++ /opt/opennms/etc/opennms-datasources.xml.backup	2022-10-05 19:01:57.315578426 +0000
