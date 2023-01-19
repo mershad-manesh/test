@@ -9,7 +9,19 @@ if test -f "/home/opennms/.installed"; then
 fi
 
 
-sudo apt-get update && sudo apt-get install -y openjdk-11-jre-headless postgresql postgresql-contrib
+sudo yum update -y && sudo yum install -y java-11-openjdk-devel postgresql postgresql-contrib
+
+sudo dnf install langpacks-en glibc-all-langpacks -y
+sudo localectl set-locale LANG=en_US.UTF-8
+sudo localectl
+sudo dnf makecache -y
+sudo dnf update -y
+
+sudo dnf -y install postgresql-server postgresql
+
+sudo postgresql-setup --initdb --unit postgresql
+sudo systemctl enable --now postgresql
+
 sudo systemctl status postgresql
 
 #sleep 20
@@ -34,18 +46,26 @@ do
  sleep 1
 done
 
-sudo apt-key adv --fetch-keys https://debian.opennms.org/OPENNMS-GPG-KEY
-sudo curl -1sLf ' https://packages.opennms.com/public/common/setup.rpm.sh' | sudo -E bash
-sudo curl -1sLf ' https://packages.opennms.com/public/foundation-2023/setup.rpm.sh' | sudo -E bash
+curl -1sLf \
+  'https://packages.opennms.com/public/common/setup.rpm.sh' \
+  | sudo -E bash
 
-#sudo add-apt-repository -y -s 'deb https://debian.opennms.org stable main'
-
+curl -1sLf \
+  'https://packages.opennms.com/public/foundation-2023/setup.rpm.sh' \
+  | sudo -E bash
 
 sleep 5
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install opennms r-recommended tree
-##sudo -u opennms vi /usr/share/opennms/etc/opennms-datasources.xml
-echo '--- /usr/share/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290040317 +0000
-+++ /usr/share/opennms/etc/opennms-datasources.xml.backup	2022-10-05 19:01:57.315578426 +0000
+sudo DEBIAN_FRONTEND=noninteractive dnf -y install meridian tree
+sudo dnf -y install epel-release
+sudo dnf -y install R-core
+sudo dnf config-manager --disable opennms-meridian-2023-testing-noarch
+
+##sudo -u opennms vi /opt/opennms/etc/opennms-datasources.xml
+
+Sudo def install patch -y
+
+echo '--- /opt/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290040317 +0000
++++ /opt/opennms/etc/opennms-datasources.xml.backup	2022-10-05 19:01:57.315578426 +0000
 @@ -23,5 +23,5 @@
                      class-name="org.postgresql.Driver"
                      url="jdbc:postgresql://localhost:5432/template1"
@@ -54,13 +74,20 @@ echo '--- /usr/share/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290
 +                    password="postgres" />
  </datasource-configuration>
 ' > /tmp/postgressettings.patch
-sudo patch /usr/share/opennms/etc/opennms-datasources.xml /tmp/postgressettings.patch
-sudo /usr/share/opennms/bin/fix-permissions
-sudo /usr/share/opennms/bin/runjava -s
-sudo /usr/share/opennms/bin/install -dis
+
+sudo patch /opt/opennms/etc/opennms-datasources.xml /tmp/postgressettings.patch
+
+
+sudo sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
+
+sudo systemctl restart postgresql
+
+sudo /opt/opennms/bin/fix-permissions
+sudo /opt/opennms/bin/runjava -s
+sudo /opt/opennms/bin/install -dis
 sudo systemctl daemon-reload
 sudo systemctl restart opennms
-sudo ufw allow 8980/tcp
+
 sleep 10
 /usr/share/opennms/bin/opennms status > /home/opennms/.installed 2>&1
 sudo systemctl enable --now opennms
