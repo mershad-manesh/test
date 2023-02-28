@@ -11,7 +11,6 @@ fi
 curl -fsSL https://debian.opennms.org/OPENNMS-GPG-KEY | sudo gpg --dearmor -o /usr/share/keyrings/opennms.gpg
 echo "deb [signed-by=/usr/share/keyrings/opennms.gpg] https://debian.opennms.org stable main" | sudo tee /etc/apt/sources.list.d/opennms.list
 sudo apt update
-sleep 5
 sudo DEBIAN_FRONTEND=noninteractive sudo apt -y install opennms-minion
 
 #echo '--- /usr/share/minion/etc/org.opennms.minion.controller.cfg	2022-10-05 14:35:06.290040317 +0000
