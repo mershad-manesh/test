@@ -39,7 +39,22 @@ cat > /tmp/postgressettings.patch<< EOF
  					# (change requires restart)
 EOF
 
+cat > /tmp/pg_hba.patch<< EOF
+--- /etc/postgresql/10/main/pg_hba.conf	2023-03-31 13:35:55.957933974 +0000
++++ ./pg_hba.conf	2023-03-31 14:17:51.277888712 +0000
+@@ -85,6 +85,7 @@
+ local   all             postgres                                peer
+ 
+ # TYPE  DATABASE        USER            ADDRESS                 METHOD
++host    all             all             172.21.0.0/24            md5
+ 
+ # "local" is for Unix domain socket connections only
+ local   all             all                                     peer
+EOF
+
+
 sudo patch /etc/postgresql/10/main/postgresql.conf /tmp/postgressettings.patch
+sudo patch /etc/postgresql/10/main/pg_hba.conf /tmp/pg_hba.patch
 
 sudo systemctl restart postgresql
 
