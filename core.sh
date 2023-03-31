@@ -20,7 +20,7 @@ echo '--- opennms-datasources.xml.backup	2023-03-31 13:50:32.096391215 +0000
                      database-name="opennms" 
                      class-name="org.postgresql.Driver" 
 -                    url="jdbc:postgresql://localhost:5432/opennms"
-+                    url="jdbc:postgresql://172.21.0.4:5432/opennms"
++                    url="jdbc:postgresql://opennms-bm-databasevm:5432/opennms"
                      user-name="opennms"
                      password="opennms" />
  
@@ -28,7 +28,7 @@ echo '--- opennms-datasources.xml.backup	2023-03-31 13:50:32.096391215 +0000
                      database-name="template1" 
                      class-name="org.postgresql.Driver" 
 -                    url="jdbc:postgresql://localhost:5432/template1"
-+                    url="jdbc:postgresql://172.21.0.4:5432/template1"
++                    url="jdbc:postgresql://opennms-bm-databasevm:5432/template1"
                      user-name="postgres"
 -                    password="" />
 +                    password="postgres" />
