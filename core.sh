@@ -13,12 +13,20 @@ sudo add-apt-repository -y -s 'deb https://debian.opennms.org stable main'
 sleep 5
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install opennms r-recommended tree
 ##sudo -u opennms vi /usr/share/opennms/etc/opennms-datasources.xml
-echo '--- /usr/share/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290040317 +0000
-+++ /usr/share/opennms/etc/opennms-datasources.xml.backup	2022-10-05 19:01:57.315578426 +0000
+echo '--- opennms-datasources.xml.backup	2023-03-31 13:50:32.096391215 +0000
++++ opennms-datasources.xml	2023-03-31 13:51:03.661406514 +0000
+@@ -14,7 +14,7 @@
+   <jdbc-data-source name="opennms" 
+                     database-name="opennms" 
+                     class-name="org.postgresql.Driver" 
+-                    url="jdbc:postgresql://localhost:5432/opennms"
++                    url="jdbc:postgresql://172.21.0.4:5432/opennms"
+                     user-name="opennms"
+                     password="opennms" />
+ 
 @@ -23,5 +23,5 @@
                      class-name="org.postgresql.Driver" 
--                     url="jdbc:postgresql://localhost:5432/template1"
-+                     url="jdbc:postgresql://172.21.0.4:5432/template1"
+                     url="jdbc:postgresql://localhost:5432/template1"
                      user-name="postgres"
 -                    password="" />
 +                    password="postgres" />
