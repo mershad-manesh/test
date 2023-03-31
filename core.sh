@@ -8,11 +8,6 @@ if test -f "/home/opennms/.installed"; then
     exit 0 
 fi
 
-if [ ! -z "$1" ]; then
-  echo "Missing database ip address"
-  exit 1
-fi
-
 sudo apt-key adv --fetch-keys https://debian.opennms.org/OPENNMS-GPG-KEY
 sudo add-apt-repository -y -s 'deb https://debian.opennms.org stable main'
 sleep 5
@@ -22,8 +17,8 @@ echo '--- /usr/share/opennms/etc/opennms-datasources.xml	2022-10-05 14:35:06.290
 +++ /usr/share/opennms/etc/opennms-datasources.xml.backup	2022-10-05 19:01:57.315578426 +0000
 @@ -23,5 +23,5 @@
                      class-name="org.postgresql.Driver" 
-                     url="jdbc:postgresql://localhost:5432/template1"
-                     url="jdbc:postgresql://$1:5432/template1"
+-                     url="jdbc:postgresql://localhost:5432/template1"
++                     url="jdbc:postgresql://172.21.0.4:5432/template1"
                      user-name="postgres"
 -                    password="" />
 +                    password="postgres" />
