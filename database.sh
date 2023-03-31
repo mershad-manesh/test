@@ -66,4 +66,6 @@ do
  sleep 1
 done
 
+#sudo systemctl enable --now postgres
+
 exit 0
