@@ -22,6 +22,22 @@ done
 sudo -u postgres psql -c "CREATE USER opennms WITH PASSWORD 'opennms';"
 sudo -u postgres createdb -O opennms opennms
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+
+echo "--- /etc/postgresql/10/main/postgresql.conf	2023-03-31 13:35:55.977934006 +0000
++++ postgresql.conf	2023-03-31 14:02:26.918918580 +0000
+@@ -56,7 +56,7 @@
+ 
+ # - Connection Settings -
+ 
+-#listen_addresses = 'localhost'		# what IP address(es) to listen on;
++listen_addresses = '*'		# what IP address(es) to listen on;
+ 					# comma-separated list of addresses;
+ 					# defaults to 'localhost'; use '*' for all
+ 					# (change requires restart)
+" > /tmp/postgressettings.patch
+
+sudo patch /etc/postgresql/10/main/postgresql.conf /tmp/postgressettings.patch
+
 sudo systemctl reload postgresql
 
 #sleep 20
