@@ -35,6 +35,7 @@ echo '--- opennms-datasources.xml.backup	2023-03-31 13:50:32.096391215 +0000
  </datasource-configuration>
 ' > /tmp/postgressettings.patch
 sudo patch /usr/share/opennms/etc/opennms-datasources.xml /tmp/postgressettings.patch
+sudo echo "enabled=false" > /usr/share/opennms/etc/org.opennms.features.datachoices.cfg
 sudo /usr/share/opennms/bin/fix-permissions
 sudo /usr/share/opennms/bin/runjava -s
 sudo /usr/share/opennms/bin/install -dis
